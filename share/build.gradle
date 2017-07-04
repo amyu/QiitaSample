@@ -1,0 +1,39 @@
+apply plugin: 'kotlin'
+
+//noinspection GroovyUnusedAssignment
+sourceCompatibility = 1.7
+//noinspection GroovyUnusedAssignment
+targetCompatibility = 1.7
+
+configurations {
+    provided
+    testOutput
+}
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+    }
+    main.java.srcDirs += 'src/main/kotlin'
+    test.java.srcDirs += 'src/test/kotlin'
+}
+task jarTest (type: Jar) {
+    from sourceSets.test.output
+    classifier = 'test'
+}
+artifacts {
+    testOutput jarTest
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+
+    def shareDependencies = rootProject.ext.shareDependencies
+    compile shareDependencies.rxJava
+    compile shareDependencies.rxKotlin
+    compile shareDependencies.kodein
+    compile shareDependencies.threetenBP
+
+    def shareTestDependencies = rootProject.ext.shareTestDependencies
+    testCompile shareTestDependencies.jUnit
+    testCompile shareTestDependencies.mockito
+}

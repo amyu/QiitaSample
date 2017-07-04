@@ -1,0 +1,49 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+    buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
+    defaultConfig {
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        versionCode globalConfiguration["androidVersionCode"]
+        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+    buildTypes {
+        debug {
+            buildConfigField("String", "API_END_POINT", "\"https://qiita.com\"")
+        }
+        release {
+            buildConfigField("String", "API_END_POINT", "\"https://qiita.com\"")
+        }
+    }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+
+    def dataDependencies = rootProject.ext.dataDependencies
+    compile project(':domain')
+    compile project(':share')
+    compile dataDependencies.retrofit
+    compile dataDependencies.retrofitAdapterRxJava
+    compile dataDependencies.retrofitAdapterGson
+    compile dataDependencies.okHttp
+    compile dataDependencies.loggingInterceptor
+    compile dataDependencies.gson
+
+    def dataTestDependencies = rootProject.ext.dataTestDependencies
+    testCompile dataTestDependencies.jUnit
+    testCompile dataTestDependencies.mockito
+    testCompile project(path: ':share', configuration: 'testOutput')
+}

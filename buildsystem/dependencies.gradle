@@ -1,0 +1,86 @@
+allprojects {
+    repositories {
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+    ext {
+        androidApplicationId = 'amyu.qiita'
+        androidVersionCode = 1
+        androidVersionName = "1.0"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+    }
+}
+
+ext {
+    //Android
+    androidBuildToolsVersion = "26.0.0"
+    androidMinSdkVersion = 23
+    androidTargetSdkVersion = 25
+    androidCompileSdkVersion = 25
+
+    //Libraries
+    appCompatVersion = '25.4.0'
+    constraintVersion = '1.0.2'
+    rxJavaVersion = '2.0.7'
+    rxKotlinVersion = '2.0.0-RC1'
+    rxAndroid = '2.0.1'
+    databindingCompilerVersion = '2.3.0'
+    kodeinVersion = '4.0.0'
+    kodeinAndroidVersion = '4.0.0'
+    retrofitVersion = '2.2.0'
+    okHttpVersion = '3.6.0'
+    gsonVersion = '2.7'
+    constraintLayoutVersion = '1.0.1'
+    supportDesignVersion = '25.4.0'
+    threetenABPVersion = '1.0.5'
+    threetenBPVersion = '1.3.3'
+
+    //Testing
+    jUnitVersion = '4.12'
+    mockitoVersion = '1.9.5'
+
+    presentationDependencies = [
+            appcompat          : "com.android.support:appcompat-v7:${appCompatVersion}",
+            constraint         : "com.android.support.constraint:constraint-layout:${constraintVersion}",
+            databindingCompiler: "com.android.databinding:compiler:${databindingCompilerVersion}",
+            rxAndroid          : "io.reactivex.rxjava2:rxandroid:${rxAndroid}",
+            kodeinAndroid      : "com.github.salomonbrys.kodein:kodein-android:${kodeinAndroidVersion}",
+            constraintLayout   : "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
+            supportDesign      : "com.android.support:design:${supportDesignVersion}",
+    ]
+    presentationTestDependencies = [
+            jUnit  : "junit:junit:${jUnitVersion}",
+            mockito: "org.mockito:mockito-core:${mockitoVersion}",
+    ]
+
+    domainDependencies = [
+    ]
+    domainTestDependencies = [
+            jUnit  : "junit:junit:${jUnitVersion}",
+            mockito: "org.mockito:mockito-core:${mockitoVersion}",
+    ]
+
+    dataDependencies = [
+            retrofit             : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitAdapterRxJava: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            retrofitAdapterGson  : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            okHttp               : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
+            loggingInterceptor   : "com.squareup.okhttp3:logging-interceptor:$okHttpVersion",
+            gson                 : "com.google.code.gson:gson:${gsonVersion}",
+    ]
+    dataTestDependencies = [
+            jUnit  : "junit:junit:${jUnitVersion}",
+            mockito: "org.mockito:mockito-core:${mockitoVersion}",
+    ]
+
+    shareDependencies = [
+            threetenBP: "org.threeten:threetenbp:${threetenBPVersion}",
+            rxJava    : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxKotlin  : "io.reactivex:rxkotlin:${rxKotlinVersion}",
+            kodein    : "com.github.salomonbrys.kodein:kodein:${kodeinVersion}",
+    ]
+    shareTestDependencies = [
+            jUnit  : "junit:junit:${jUnitVersion}",
+            mockito: "org.mockito:mockito-core:${mockitoVersion}",
+    ]
+}

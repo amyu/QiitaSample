@@ -1,0 +1,21 @@
+apply plugin: 'kotlin'
+
+//noinspection GroovyUnusedAssignment
+sourceCompatibility = 1.7
+//noinspection GroovyUnusedAssignment
+targetCompatibility = 1.7
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+    test.java.srcDirs += 'src/test/kotlin'
+}
+
+dependencies {
+    def domainDependencies = rootProject.ext.domainDependencies
+    compile project(':share')
+
+    def domainTestDependencies = rootProject.ext.domainTestDependencies
+    testCompile domainTestDependencies.jUnit
+    testCompile domainTestDependencies.mockito
+    testCompile project(path: ':share', configuration: 'testOutput')
+}

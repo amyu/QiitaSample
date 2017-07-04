@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Qiita</string>
+
+    <string name="login___toolbar_title">Login</string>
+    <string name="login__do_login">Login</string>
+    <string name="login__password">password</string>
+    <string name="login__name">name</string>
+</resources>

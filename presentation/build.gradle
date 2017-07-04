@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+    buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
+    defaultConfig {
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+
+        applicationId globalConfiguration["androidApplicationId"]
+        versionCode globalConfiguration["androidVersionCode"]
+        versionName globalConfiguration["androidVersionName"]
+        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+    dataBinding {
+        enabled = true
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+
+    def presentationDependencies = rootProject.ext.presentationDependencies
+    compile project(':domain')
+    compile project(':data')
+    compile project(':share')
+    compile presentationDependencies.appcompat
+    compile presentationDependencies.constraint
+    compile presentationDependencies.rxAndroid
+    compile presentationDependencies.kodeinAndroid
+    kapt presentationDependencies.databindingCompiler
+    compile presentationDependencies.constraintLayout
+    compile presentationDependencies.supportDesign
+
+    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
+    testCompile presentationTestDependencies.jUnit
+    testCompile presentationTestDependencies.mockito
+    testCompile project(path: ':share', configuration: 'testOutput')
+}
